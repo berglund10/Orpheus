@@ -16,8 +16,12 @@ app.listen(PORT, () => {
     console.log(`Listen on port ${PORT}`);
 })
 
+app.get("/user", (req, res) => {
+    res.send({ username: "anton", password: "321" });
+})
+
 app.use("/", express.static(frontendDistPath));
 
 app.get("*", (req, res) => {
-    res.sendFile('index.html', { root: frontendDistPath } );
+    res.sendFile('index.html', { root: frontendDistPath });
 });

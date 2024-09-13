@@ -1,27 +1,30 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../App";
 
-function Login( {setAuth }) {
+function Login({ setAuth }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const {user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (user.username === username && user.password === password) {
-      setUser({...user, auth: true})
-      setAuth(user.auth)
-      navigate('/loggedIn');
-
+      setUser({ ...user, auth: true })
     } else {
-      setAuth(false)
       setErrorMessage("Fel användarnamn eller lösenord");
     }
   };
+
+  useEffect(() => {
+    if (user.auth) {
+      setAuth(true)
+      navigate('/loggedIn');
+    }
+  }, [user.auth]);
 
   return (
     <div>

@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../App";
 
 function Login( {setAuth }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const Username = "bosse";
-  const Password = "123";
+  const {user, setUser } = useContext(UserContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === Username && password === Password) {
-      setAuth(true)
+    if (user.username === username && user.password === password) {
+      setUser({...user, auth: true})
+      setAuth(user.auth)
       navigate('/loggedIn');
 
     } else {

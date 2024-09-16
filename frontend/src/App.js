@@ -6,7 +6,6 @@ import Home from './pages/home';
 import LoggedIn from './pages/loggedIn';
 import PrivateRoute from './components/privateRoute';
 import { createContext } from 'react';
-import axios from 'axios';
 import { serverEndpoint } from './config';
 
 export const UserContext = createContext(null);
@@ -18,9 +17,16 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(serverEndpoint + '/user');
+        const response = await fetch(serverEndpoint + '/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         if(response.status === 200) {
-          if(response.data.password === '321') {
+          const user = await response.json();
+          console.log(user)
+          if(user.password === '321') {
             setUser({...response.data, auth: true})
           }
 

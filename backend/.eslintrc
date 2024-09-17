@@ -1,0 +1,9 @@
+{
+    "extends": "salt-typescript",
+    "parserOptions": {
+      "project": "tsconfig.json"
+    },
+    "rules": {
+    "linebreak-style": ["error", "windows"]
+}
+  }

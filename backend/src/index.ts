@@ -1,13 +1,8 @@
-import express, { Request, Response } from 'express';
-import path from 'path';
-import compression from 'compression';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import Database from './database';
+import expressApp from './express';
 
 dotenv.config();
-
-const frontendDistPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
 
 const db = new Database({
   host: process.env.DB_HOST,
@@ -31,18 +26,10 @@ const db = new Database({
   }
 })();
 
+const app = expressApp();
 
-const app = express();
-
-const PORT = 3000;
-
-app.use(cors());
-app.use(compression());
-app.use(express.json());
-
-
-app.listen(PORT, () => {
-  console.log(`Listen on port ${PORT}`);
+app.listen(3000, () => {
+  console.log(`Listen on port 3000`);
 });
 
 /* const saltLogger = function (req:any, res:any, next:any) {
@@ -62,8 +49,3 @@ app.use(saltLogger); */
   res.send({ username: 'userFromBackend', password: '321' });
 });
  */
-app.use('/', express.static(frontendDistPath));
-
-app.get('*', (req:Request, res:Response) => {
-  res.sendFile('index.html', { root: frontendDistPath });
-});

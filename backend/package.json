@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -Rf ./dist && tsc",
     "dev": "ts-node src/index.ts",
+    "start": "node ./dist/index.js",
     "lint": "eslint ./src/"
   },
   "author": "ab",

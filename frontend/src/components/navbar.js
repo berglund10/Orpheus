@@ -26,6 +26,7 @@ function NavBar() {
         color: 'white',
         textDecoration: 'none',
         fontSize: '18px',
+        cursor: 'pointer',
     };
 
     const ulStyle = {

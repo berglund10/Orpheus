@@ -7,6 +7,7 @@ import LoggedIn from './pages/loggedIn';
 import PrivateRoute from './components/privateRoute';
 import { createContext } from 'react';
 import { serverEndpoint } from './config';
+import NavBar from './components/navbar';
 
 export const UserContext = createContext(null);
 
@@ -46,6 +47,7 @@ export default function App() {
     <div>
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
+          <NavBar/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login setAuth={setAuth} />} />

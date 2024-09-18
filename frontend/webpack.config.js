@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
 
   return {
     mode: mode,
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist'),
@@ -32,7 +32,15 @@ module.exports = (env, argv) => {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
       ]
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
       new HtmlWebpackPlugin({

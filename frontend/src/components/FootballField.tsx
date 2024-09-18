@@ -1,13 +1,16 @@
 import React from "react";
 import { formation442 } from "../data/formationData";
 import "./FootballField.css";
+import Goalkeeper from "./goalkeeper";
 
 const FootballField = () => {
   const { goalkeeper, defenders, midfielders, forwards } = formation442;
 
   return (
     <div className="football-field">
-      <div className="goalkeeper">{goalkeeper.name}</div>
+      <div className="goalkeeper">
+        <Goalkeeper {...goalkeeper} />
+      </div>
 
       <div className="defenders">
         {defenders.map((defender) => (

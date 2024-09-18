@@ -24,7 +24,7 @@ const db = new Database({
   }
 })();
 
-const app = expressApp();
+const app = expressApp(db);
 
 app.listen(3000, () => {
   console.log(`Listen on port 3000`);

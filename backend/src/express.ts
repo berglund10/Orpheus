@@ -14,9 +14,19 @@ export default function expressApp(db: Database) {
   app.use(express.json());
 
   app.get("/user/:id", async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const user = await db.getUserById(id);
-    res.send(user);
+    try {
+      const { id } = req.params;
+
+      const user = await db.getUserById(id);
+
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ error: "Server Error" });
+    }
   });
 
   app.use("/", express.static(frontendDistPath));

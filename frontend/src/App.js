@@ -1,53 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/login';
-import SignupPage from './pages/signup';
-import Home from './pages/home';
-import LoggedIn from './pages/loggedIn';
-import PrivateRoute from './components/privateRoute';
-import { createContext } from 'react';
-import { serverEndpoint } from './config';
-import NavBar from './components/navbar';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/login";
+import SignupPage from "./pages/signup";
+import Home from "./pages/home";
+import LoggedIn from "./pages/loggedIn";
+import PrivateRoute from "./components/privateRoute";
+import { createContext } from "react";
+import { serverEndpoint } from "./config";
+import NavBar from "./components/navbar";
 
 export const UserContext = createContext(null);
 
 export default function App() {
-  const [user, setUser] = useState({ username: 'bosse', password: '123', auth: false});
+  const [user, setUser] = useState({
+    username: "bosse",
+    password: "123",
+    auth: false,
+  });
   const [isAuth, setAuth] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(serverEndpoint + '/user', {
-          method: 'GET',
+        const response = await fetch(serverEndpoint + "/user", {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json'
-          }
+            "Content-Type": "application/json",
+          },
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
           const user = await response.json();
-          console.log(user)
-          if(user.password === '321') {
-            setUser({...response.data, auth: true})
+          console.log(user);
+          if (user.password === "321") {
+            setUser({ ...response.data, auth: true });
           }
-
         }
       } catch (err) {
-        console.log(err.message)
+        console.log(err.message);
       }
     };
 
     fetchData();
   }, []);
 
-  console.log(user)
-
+  console.log(user);
 
   return (
     <div>
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
-          <NavBar/>
+          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login setAuth={setAuth} />} />

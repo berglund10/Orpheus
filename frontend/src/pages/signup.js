@@ -8,7 +8,7 @@ function SignupPage() {
   const createAccount = (e) => {
     e.preventDefault();
     if (true) {
-      console.log("Logik för att skapa konto här sen")
+      console.log("Logik för att skapa konto här sen");
     } else {
       setErrorMessage("Kunde inte skapa användaren");
     }

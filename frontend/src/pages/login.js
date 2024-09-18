@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 
 function Login({ setAuth }) {
@@ -12,7 +12,7 @@ function Login({ setAuth }) {
   const handleLogin = (e) => {
     e.preventDefault();
     if (user.username === username && user.password === password) {
-      setUser({ ...user, auth: true })
+      setUser({ ...user, auth: true });
     } else {
       setErrorMessage("Fel användarnamn eller lösenord");
     }
@@ -20,8 +20,8 @@ function Login({ setAuth }) {
 
   useEffect(() => {
     if (user.auth) {
-      setAuth(true)
-      navigate('/loggedIn');
+      setAuth(true);
+      navigate("/loggedIn");
     }
   }, [user.auth]);
 

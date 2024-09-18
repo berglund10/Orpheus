@@ -1,0 +1,11 @@
+{
+    "extends": ["salt-typescript", "prettier"],
+    "parserOptions": {
+      "project": "tsconfig.json"
+    },
+    "plugins": ["prettier"],
+    "rules": {
+    "prettier/prettier": "error",
+    "linebreak-style": ["error", "windows"]
+}
+  }

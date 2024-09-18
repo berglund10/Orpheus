@@ -1,5 +1,5 @@
-import { Client, ClientConfig } from 'pg';
-import { v4 as uuidv4 } from 'uuid';
+import { Client, ClientConfig } from "pg";
+import { v4 as uuidv4 } from "uuid";
 
 export default class Database {
   config: ClientConfig;
@@ -33,7 +33,7 @@ export default class Database {
           createdAt TIMESTAMP NOT NULL,
           PRIMARY KEY (id)
       );
-    `
+    `;
     await this.getConnection().query(query);
   }
 
@@ -41,14 +41,20 @@ export default class Database {
     //Validation
     const id = uuidv4();
     const createdAt = new Date();
-    const query = 'INSERT INTO users(id, username, password, createdAt) VALUES ($1, $2, $3, $4)';
-    await this.getConnection().query(query, [id, username, password, createdAt]);  
+    const query =
+      "INSERT INTO users(id, username, password, createdAt) VALUES ($1, $2, $3, $4)";
+    await this.getConnection().query(query, [
+      id,
+      username,
+      password,
+      createdAt,
+    ]);
 
     return id;
   }
 
   async getUserById(id: string) {
-    const query = 'SELECT * FROM users WHERE id = $1';
+    const query = "SELECT * FROM users WHERE id = $1";
     const result = await this.getConnection().query(query, [id]);
 
     const user = result.rows[0];

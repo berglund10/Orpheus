@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
-import Database from './database';
-import expressApp from './express';
+import dotenv from "dotenv";
+import Database from "./database";
+import expressApp from "./express";
 
 dotenv.config();
 
@@ -12,13 +12,11 @@ const db = new Database({
   database: process.env.DB_NAME,
 });
 
-
 (async () => {
   try {
     await db.connect();
 
     //await db.addUser("test-username", "test-password");
-
   } catch (error) {
     console.error("Could not connect");
     console.error(error);

@@ -4,7 +4,6 @@ import { useUserClient } from "../clients/userClient";
 
 function Login() {
   const user = useUserClient();
-  console.log(user);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

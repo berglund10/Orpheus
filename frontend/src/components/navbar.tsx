@@ -49,6 +49,11 @@ function NavBar() {
           </Link>
         </li>
         <li style={liStyle}>
+          <Link to="/match" style={linkStyle}>
+            Match
+          </Link>
+        </li>
+        <li style={liStyle}>
           <Link to="/signup" style={linkStyle}>
             Sign up
           </Link>

@@ -8,6 +8,7 @@ import PrivateRoute from "./components/privateRoute";
 import { serverEndpoint } from "./config";
 import NavBar from "./components/navbar";
 import UserClientContext from "./clients/userClient";
+import Match from "./pages/match";
 
 export default function App() {
   const [user, setUser] = useState({
@@ -27,7 +28,6 @@ export default function App() {
         });
         if (response.status === 200) {
           const user = await response.json();
-          console.log(user);
           if (user.password === "321") {
             setUser({ ...response.data, auth: true });
           }
@@ -39,8 +39,6 @@ export default function App() {
 
     fetchData();
   }, []);
-
-  console.log(user);
 
   return (
     <div>
@@ -54,6 +52,7 @@ export default function App() {
             <Route element={<PrivateRoute isAuthenticated={user.auth} />}>
               <Route path="/loggedIn" element={<LoggedIn />} />
             </Route>
+            <Route path="/match" element={<Match />} />
           </Routes>
         </Router>
       </UserClientContext.Provider>

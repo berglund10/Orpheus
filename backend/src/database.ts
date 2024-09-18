@@ -1,5 +1,6 @@
 import { Client, ClientConfig } from "pg";
 import { v4 as uuidv4 } from "uuid";
+import { checkHashedPassword, hashPassword } from "./password";
 
 export default class Database {
   config: ClientConfig;
@@ -41,12 +42,17 @@ export default class Database {
     //Validation
     const id = uuidv4();
     const createdAt = new Date();
+
+    const hashedPassword = hashPassword(password);
+
+    console.log(checkHashedPassword(password, hashedPassword));
+
     const query =
       "INSERT INTO users(id, username, password, createdAt) VALUES ($1, $2, $3, $4)";
     await this.getConnection().query(query, [
       id,
       username,
-      password,
+      hashedPassword,
       createdAt,
     ]);
 

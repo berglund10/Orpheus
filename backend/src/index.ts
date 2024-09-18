@@ -29,21 +29,3 @@ const app = expressApp(db);
 app.listen(3000, () => {
   console.log(`Listen on port 3000`);
 });
-
-/* const saltLogger = function (req:any, res:any, next:any) {
-  console.log(`salt> ${req.method} - ${req.url}`);
-  next();
-};
-
-app.use(saltLogger); */
-
-/* app.post('/add', async (req, res) => {
-  const user = req.body;
-  const databaseRes = await addUser(client, user);
-  res.send(databaseRes);
-}); */
-
-/* app.get('/user', (_req, res) => {
-  res.send({ username: 'userFromBackend', password: '321' });
-});
- */

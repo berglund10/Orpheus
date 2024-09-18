@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import path from "path";
 import compression from "compression";
 import cors from "cors";
+import morgan from 'morgan';
 import Database from "./database";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
@@ -12,6 +13,7 @@ export default function expressApp(db: Database) {
   app.use(cors());
   app.use(compression());
   app.use(express.json());
+  app.use(morgan("dev"));
 
   app.get("/user/:id", async (req: Request, res: Response) => {
     try {

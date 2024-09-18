@@ -29,6 +29,23 @@ export default function expressApp(db: Database) {
     }
   });
 
+  app.post("/user", async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body || {};
+
+      if (!username || !password) {
+        return res
+          .status(400)
+          .json({ error: "Username and password are required" });
+      }
+
+      await db.addUser(username, password);
+      res.status(200).send("User added");
+    } catch (error) {
+      res.status(500).json({ error: "Server Error" });
+    }
+  });
+
   app.use("/", express.static(frontendDistPath));
 
   app.get("*", (req: Request, res: Response) => {

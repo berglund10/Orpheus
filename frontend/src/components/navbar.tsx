@@ -1,13 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
-import { useContext } from "react";
+import { useUserClient } from "../clients/userClient";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const user = useUserClient();
   const handleLogout = () => {
-    if (user.auth) {
+    if (user?.auth) {
       user.auth = false;
       navigate("/");
     }

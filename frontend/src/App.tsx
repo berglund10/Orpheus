@@ -5,11 +5,9 @@ import SignupPage from "./pages/signup";
 import Home from "./pages/home";
 import LoggedIn from "./pages/loggedIn";
 import PrivateRoute from "./components/privateRoute";
-import { createContext } from "react";
 import { serverEndpoint } from "./config";
 import NavBar from "./components/navbar";
-
-export const UserContext = createContext(null);
+import UserClientContext from "./clients/userClient";
 
 export default function App() {
   const [user, setUser] = useState({
@@ -17,12 +15,11 @@ export default function App() {
     password: "123",
     auth: false,
   });
-  const [isAuth, setAuth] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(serverEndpoint + "/user", {
+        const response: any = await fetch(serverEndpoint + "/user", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +32,7 @@ export default function App() {
             setUser({ ...response.data, auth: true });
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.log(err.message);
       }
     };
@@ -47,19 +44,19 @@ export default function App() {
 
   return (
     <div>
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserClientContext.Provider value={user}>
         <Router>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login setAuth={setAuth} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route element={<PrivateRoute isAuthenticated={isAuth} />}>
+            <Route element={<PrivateRoute isAuthenticated={user.auth} />}>
               <Route path="/loggedIn" element={<LoggedIn />} />
             </Route>
           </Routes>
         </Router>
-      </UserContext.Provider>
+      </UserClientContext.Provider>
     </div>
   );
 }

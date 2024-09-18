@@ -1,34 +1,23 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
+import React, { useState } from "react";
 
-function Login({ setAuth }) {
-  const navigate = useNavigate();
+function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { user, setUser } = useContext(UserContext);
 
-  const handleLogin = (e) => {
+  const createAccount = (e: any) => {
     e.preventDefault();
-    if (user.username === username && user.password === password) {
-      setUser({ ...user, auth: true });
+    if (true) {
+      console.log("Logik för att skapa konto här sen");
     } else {
-      setErrorMessage("Fel användarnamn eller lösenord");
+      setErrorMessage("Kunde inte skapa användaren");
     }
   };
 
-  useEffect(() => {
-    if (user.auth) {
-      setAuth(true);
-      navigate("/loggedIn");
-    }
-  }, [user.auth]);
-
   return (
     <div>
-      <h2>Logga in</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Skapa konto</h2>
+      <form onSubmit={createAccount}>
         <div>
           <label htmlFor="username">Användarnamn:</label>
           <input
@@ -48,10 +37,10 @@ function Login({ setAuth }) {
           />
         </div>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button type="submit">Logga in</button>
+        <button type="submit">Skapa konto</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default SignupPage;

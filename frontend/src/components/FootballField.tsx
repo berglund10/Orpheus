@@ -20,7 +20,7 @@ const FootballField = () => {
 
       <div className="defenders">
         {defenders.map((defender) => (
-          <div className="defender">
+          <div key={defender.id} className="defender">
             <Defender {...defender} />
           </div>
         ))}

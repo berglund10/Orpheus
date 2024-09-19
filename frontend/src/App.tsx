@@ -9,6 +9,7 @@ import { serverEndpoint } from "./config";
 import NavBar from "./components/navbar";
 import UserClientContext from "./clients/userClient";
 import Match from "./pages/match";
+import Bets from "./pages/bets";
 
 export default function App() {
   const [user, setUser] = useState({
@@ -53,6 +54,7 @@ export default function App() {
               <Route path="/loggedIn" element={<LoggedIn />} />
             </Route>
             <Route path="/match" element={<Match />} />
+            <Route path="/bets" element={<Bets />} />
           </Routes>
         </Router>
       </UserClientContext.Provider>

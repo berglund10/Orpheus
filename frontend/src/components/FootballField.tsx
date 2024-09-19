@@ -3,8 +3,13 @@ import { formation442 } from "../data/formationData";
 import "./FootballField.css";
 import Goalkeeper from "./goalkeeper";
 import Defender from "./defender";
+import { useNavigate } from "react-router-dom";
 
 const FootballField = () => {
+  const navigate = useNavigate();
+  function selectEleven() {
+    navigate("/bets");
+  }
   const { goalkeeper, defenders, midfielders, forwards } = formation442;
 
   return (
@@ -16,7 +21,7 @@ const FootballField = () => {
       <div className="defenders">
         {defenders.map((defender) => (
           <div className="defender">
-          <Defender {...defender} />
+            <Defender {...defender} />
           </div>
         ))}
       </div>
@@ -36,7 +41,9 @@ const FootballField = () => {
           </div>
         ))}
       </div>
-      <button className="selectEleven">Select Eleven</button>
+      <button onClick={selectEleven} className="selectEleven">
+        Select Eleven
+      </button>
     </div>
   );
 };

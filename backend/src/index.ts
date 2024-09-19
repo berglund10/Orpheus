@@ -1,22 +1,14 @@
-import dotenv from "dotenv";
 import Database from "./database";
 import expressApp from "./express";
-
-dotenv.config();
+import { config } from "./config";
 
 const db = new Database({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: config.databaseConfig.host,
+  port: config.databaseConfig.port,
+  user: config.databaseConfig.user,
+  password: config.databaseConfig.password,
+  database: config.databaseConfig.database,
 });
-
-const apiKey = process.env.API_KEY;
-
-if (!apiKey) {
-  throw new Error('API_KEY is missing');
-}
 
 (async () => {
   try {
@@ -30,7 +22,7 @@ if (!apiKey) {
   }
 })();
 
-const app = expressApp(db, apiKey);
+const app = expressApp(db, config.apiKey);
 
 app.listen(3000, () => {
   console.log(`Listen on port 3000`);

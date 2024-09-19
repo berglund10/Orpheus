@@ -2,6 +2,7 @@ import React from "react";
 import { formation442 } from "../data/formationData";
 import "./FootballField.css";
 import Goalkeeper from "./goalkeeper";
+import Defender from "./defender";
 
 const FootballField = () => {
   const { goalkeeper, defenders, midfielders, forwards } = formation442;
@@ -14,9 +15,7 @@ const FootballField = () => {
 
       <div className="defenders">
         {defenders.map((defender) => (
-          <div key={defender.id} className="defender">
-            {defender.name}
-          </div>
+          <Defender {...defender} />
         ))}
       </div>
 

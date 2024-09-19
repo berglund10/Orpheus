@@ -15,7 +15,9 @@ const FootballField = () => {
 
       <div className="defenders">
         {defenders.map((defender) => (
+          <div className="defender">
           <Defender {...defender} />
+          </div>
         ))}
       </div>
 

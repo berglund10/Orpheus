@@ -42,6 +42,7 @@ const Defender = (props: DefenderProps) => {
   return (
     <>
       {defender}
+      <br/>
       <select name="defenders" onChange={handleChange}>
         {defenders.length > 0 ? (
           defenders.map((defender) => (

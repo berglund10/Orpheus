@@ -12,6 +12,12 @@ const db = new Database({
   database: process.env.DB_NAME,
 });
 
+const apiKey = process.env.API_KEY;
+
+if (!apiKey) {
+  throw new Error('API_KEY is missing');
+}
+
 (async () => {
   try {
     await db.connect();
@@ -24,7 +30,7 @@ const db = new Database({
   }
 })();
 
-const app = expressApp(db);
+const app = expressApp(db, apiKey);
 
 app.listen(3000, () => {
   console.log(`Listen on port 3000`);

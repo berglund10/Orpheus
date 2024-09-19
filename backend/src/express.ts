@@ -7,7 +7,7 @@ import Database from "./database";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
-export default function expressApp(db: Database) {
+export default function expressApp(db: Database, apiKey:string) {
   const app = express();
 
   app.use(cors());
@@ -45,6 +45,26 @@ export default function expressApp(db: Database) {
       res.status(200).send("User added");
     } catch (error) {
       res.status(500).json({ error: "Server Error" });
+    }
+  });
+
+  app.get('/api/goalkeepers', async (req, res) => {
+    try {
+      const response = await fetch("https://v3.football.api-sports.io/players/squads?team=496", {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "v3.football.api-sports.io",
+          "x-rapidapi-key": apiKey
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        const playersArray = data.response[0].players;
+        const goalies = playersArray.filter((player: { position: string }) => player.position === 'Goalkeeper');
+        res.send(goalies);
+      }
+    } catch (err: any) {
+      console.log(err.message);
     }
   });
 

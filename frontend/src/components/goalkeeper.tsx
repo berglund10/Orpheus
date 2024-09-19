@@ -11,19 +11,12 @@ const Goalkeeper = (props: GoalkeeperProps) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://v3.football.api-sports.io/players/squads?team=496", {
+      const response = await fetch("http://localhost:3000/api/goalkeepers", {
         method: "GET",
-        headers: {
-          "x-rapidapi-host": "v3.football.api-sports.io",
-          "x-rapidapi-key": "secrect" // FREE KEY;
-        },
       });
       if (response.status === 200) {
         const data = await response.json();
-        const playersArray = data.response[0].players;
-        const goalies = playersArray.filter((player: { position: string }) => player.position === 'Goalkeeper');
-        console.log(goalies)
-        setGoalkeepers(goalies);
+        setGoalkeepers(data);
       }
     } catch (err: any) {
       console.log(err.message);

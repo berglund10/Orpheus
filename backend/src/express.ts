@@ -68,6 +68,26 @@ export default function expressApp(db: Database, apiKey:string) {
     }
   });
 
+  app.get('/api/defenders', async (req, res) => {
+    try {
+      const response = await fetch("https://v3.football.api-sports.io/players/squads?team=496", {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "v3.football.api-sports.io",
+          "x-rapidapi-key": apiKey
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        const playersArray = data.response[0].players;
+        const defenders = playersArray.filter((player: { position: string }) => player.position === 'Defender');
+        res.send(defenders);
+      }
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  });
+
   app.use("/", express.static(frontendDistPath));
 
   app.get("*", (req: Request, res: Response) => {

@@ -33,7 +33,6 @@ const Goalkeeper = (props: GoalkeeperProps) => {
     setGoalkeeper(selectedGoalkeeper);
   };
 
-
   return (
     <>
       {goalkeeper}

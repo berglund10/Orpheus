@@ -67,7 +67,7 @@
 .selectEleven {
   display: grid;
   grid-column: 4 / 5;
-  background-color:#8e74bb;
+  background-color: #8e74bb;
   height: 40px;
   margin-top: 20px;
   align-items: center;

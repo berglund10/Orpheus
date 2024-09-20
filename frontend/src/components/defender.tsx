@@ -23,7 +23,7 @@ const Defender = (props: DefenderProps) => {
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
-        //setDefenders(data);
+        setDefenders(data);
       }
     } catch (err: any) {
       console.log(err.message);
@@ -31,7 +31,7 @@ const Defender = (props: DefenderProps) => {
   };
 
   useEffect(() => {
-    fetchData();
+    //fetchData();
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -42,7 +42,7 @@ const Defender = (props: DefenderProps) => {
   return (
     <>
       {defender}
-      <br/>
+      <br />
       <select name="defenders" onChange={handleChange}>
         {defenders.length > 0 ? (
           defenders.map((defender) => (

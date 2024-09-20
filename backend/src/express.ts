@@ -2,12 +2,12 @@ import express, { Request, Response } from "express";
 import path from "path";
 import compression from "compression";
 import cors from "cors";
-import morgan from 'morgan';
+import morgan from "morgan";
 import Database from "./database";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
-export default function expressApp(db: Database, apiKey:string) {
+export default function expressApp(db: Database, apiKey: string) {
   const app = express();
 
   app.use(cors());
@@ -48,19 +48,24 @@ export default function expressApp(db: Database, apiKey:string) {
     }
   });
 
-  app.get('/api/goalkeepers', async (req, res) => {
+  app.get("/api/goalkeepers", async (req, res) => {
     try {
-      const response = await fetch("https://v3.football.api-sports.io/players/squads?team=496", {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "v3.football.api-sports.io",
-          "x-rapidapi-key": apiKey
+      const response = await fetch(
+        "https://v3.football.api-sports.io/players/squads?team=496",
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": apiKey,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         const data = await response.json();
         const playersArray = data.response[0].players;
-        const goalies = playersArray.filter((player: { position: string }) => player.position === 'Goalkeeper');
+        const goalies = playersArray.filter(
+          (player: { position: string }) => player.position === "Goalkeeper",
+        );
         res.send(goalies);
       }
     } catch (err: any) {
@@ -68,19 +73,24 @@ export default function expressApp(db: Database, apiKey:string) {
     }
   });
 
-  app.get('/api/defenders', async (req, res) => {
+  app.get("/api/defenders", async (req, res) => {
     try {
-      const response = await fetch("https://v3.football.api-sports.io/players/squads?team=496", {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "v3.football.api-sports.io",
-          "x-rapidapi-key": apiKey
+      const response = await fetch(
+        "https://v3.football.api-sports.io/players/squads?team=496",
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": apiKey,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         const data = await response.json();
         const playersArray = data.response[0].players;
-        const defenders = playersArray.filter((player: { position: string }) => player.position === 'Defender');
+        const defenders = playersArray.filter(
+          (player: { position: string }) => player.position === "Defender",
+        );
         res.send(defenders);
       }
     } catch (err: any) {

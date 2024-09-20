@@ -1,8 +1,15 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const requiredVars = ['API_KEY', 'DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME'];
+const requiredVars = [
+  "API_KEY",
+  "DB_HOST",
+  "DB_PORT",
+  "DB_USER",
+  "DB_PASSWORD",
+  "DB_NAME",
+];
 
 requiredVars.forEach((key) => {
   if (!process.env[key]) {

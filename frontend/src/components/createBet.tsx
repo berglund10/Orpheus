@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { FormEvent, useState } from "react"
 
 function CreateBet() {
     const [amount, setAmount] = useState("0");
-    const createBet = () => {
+    const createBet = (e: FormEvent ) => {
+        e.preventDefault();
         // http request to backend to make the bet
         console.log(`Created a bet with the amount ${amount}` )
     }

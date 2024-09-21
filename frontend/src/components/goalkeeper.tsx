@@ -4,12 +4,12 @@ interface GoalkeeperProps {
   name: string;
   id: string;
   position: string;
-  goalkeepers: string[];
+  goalkeepers: { id: string; name: string }[];
 }
 
 const Goalkeeper = (props: GoalkeeperProps) => {
   const [goalkeeper, setGoalkeeper] = useState("GK");
-  const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
+  //const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
 
   const fetchData = async () => {
     try {
@@ -18,17 +18,12 @@ const Goalkeeper = (props: GoalkeeperProps) => {
       });
       if (response.status === 200) {
         const data = await response.json();
-        setGoalkeepers(data);
+        //setGoalkeepers(data);
       }
     } catch (err: any) {
       console.log(err.message);
     }
   };
-
-  useEffect(() => {
-    console.log(goalkeepers);
-    //fetchData();
-  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGoalkeeper = event.target.value;
@@ -40,8 +35,8 @@ const Goalkeeper = (props: GoalkeeperProps) => {
       {goalkeeper}
       <br />
       <select name="goalkeepers" onChange={handleChange}>
-        {goalkeepers.length > 0 ? (
-          goalkeepers.map((goalkeeper) => (
+        {props.goalkeepers.length > 0 ? (
+          props.goalkeepers.map((goalkeeper) => (
             <option key={goalkeeper.id} value={goalkeeper.name}>
               {goalkeeper.name}
             </option>

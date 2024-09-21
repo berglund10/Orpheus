@@ -4,10 +4,11 @@ interface GoalkeeperProps {
   name: string;
   id: string;
   position: string;
+  goalkeepers: string[];
 }
 
 const Goalkeeper = (props: GoalkeeperProps) => {
-  const [goalkeeper, setGoalkeeper] = useState(props.name);
+  const [goalkeeper, setGoalkeeper] = useState("GK");
   const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
 
   const fetchData = async () => {
@@ -25,7 +26,8 @@ const Goalkeeper = (props: GoalkeeperProps) => {
   };
 
   useEffect(() => {
-    fetchData();
+    console.log(goalkeepers);
+    //fetchData();
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

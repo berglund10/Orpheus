@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { formation442 } from "../data/formationData";
 import "./FootballField.css";
 import Goalkeeper from "./goalkeeper";
@@ -6,16 +6,32 @@ import Defender from "./defender";
 import { useNavigate } from "react-router-dom";
 
 const FootballField = () => {
+  const [goalkeepers, setGoalkeepers] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/goalkeepers", {
+        method: "GET",
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setGoalkeepers(data);
+      }
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
   const navigate = useNavigate();
   function selectEleven() {
     navigate("/bets");
   }
+
   const { goalkeeper, defenders, midfielders, forwards } = formation442;
 
   return (
     <div className="football-field">
       <div className="goalkeeper">
-        <Goalkeeper {...goalkeeper} />
+        <Goalkeeper goalkeepers={goalkeepers} {...goalkeeper} />
       </div>
 
       <div className="defenders">

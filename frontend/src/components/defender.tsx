@@ -4,6 +4,7 @@ interface DefenderProps {
   name: string;
   id: string;
   position: string;
+  defenders: { id: string; name: string }[];
 }
 
 const Defender = (props: DefenderProps) => {
@@ -44,8 +45,8 @@ const Defender = (props: DefenderProps) => {
       {defender}
       <br />
       <select name="defenders" onChange={handleChange}>
-        {defenders.length > 0 ? (
-          defenders.map((defender) => (
+        {props.defenders.length > 0 ? (
+          props.defenders.map((defender) => (
             <option key={defender.id} value={defender.name}>
               {defender.name}
             </option>

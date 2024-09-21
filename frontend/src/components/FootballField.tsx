@@ -4,6 +4,7 @@ import "./FootballField.css";
 import Goalkeeper from "./goalkeeper";
 import Defender from "./defender";
 import { useNavigate } from "react-router-dom";
+import DeadlineCounter from "./deadlineCounter";
 
 const FootballField = () => {
   const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
@@ -27,13 +28,16 @@ const FootballField = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    //fetchData();
   }, []);
 
   const { goalkeeper, defenders, midfielders, forwards } = formation442;
 
   return (
     <div className="football-field">
+      <div>
+        <DeadlineCounter />
+      </div>
       <div className="goalkeeper">
         <Goalkeeper goalkeepers={goalkeepers} {...goalkeeper} />
       </div>

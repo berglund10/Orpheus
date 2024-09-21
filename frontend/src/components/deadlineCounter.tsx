@@ -7,7 +7,7 @@ function DeadlineCounter() {
     // picking eleven closes 1 hour before.
     return(
         <div>
-            <h1>Hours until deadline: {timeleft}</h1>
+            <p>Hours until deadline: {timeleft}</p>
         </div>
     )
 }

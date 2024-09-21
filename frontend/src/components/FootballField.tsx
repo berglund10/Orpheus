@@ -59,7 +59,8 @@ const FootballField = () => {
       </div>
 
       <div className="defenders">
-        {defenders.map((defender) => (
+        {defenders.slice(0,4) // Här beror det på vilken formation du valt, 4 för 4-4-2
+        .map((defender) => (
           <div key={defender.id} className="defender">
             <Defender defenders={defenders} {...defender} />
           </div>

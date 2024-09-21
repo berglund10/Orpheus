@@ -9,21 +9,6 @@ interface GoalkeeperProps {
 
 const Goalkeeper = (props: GoalkeeperProps) => {
   const [goalkeeper, setGoalkeeper] = useState("GK");
-  //const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/goalkeepers", {
-        method: "GET",
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        //setGoalkeepers(data);
-      }
-    } catch (err: any) {
-      console.log(err.message);
-    }
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGoalkeeper = event.target.value;

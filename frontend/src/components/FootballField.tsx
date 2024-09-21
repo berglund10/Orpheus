@@ -8,14 +8,30 @@ import DeadlineCounter from "./deadlineCounter";
 
 const FootballField = () => {
   const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
+  const [defenders, setDefenders] = useState<any[]>([
+    { name: "BAck1", id: 1 },
+    { name: "BAck2", id: 2 },
+    { name: "BAck3", id: 3 },
+    { name: "BAck4", id: 4 },
+  ]);
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/goalkeepers", {
-        method: "GET",
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        setGoalkeepers(data);
+      const [goalkeepersResponse, defendersResponse] = await Promise.all([
+        fetch("http://localhost:3000/api/goalkeepers", { method: "GET" }),
+        fetch("http://localhost:3000/api/defenders", { method: "GET" }),
+      ]);
+
+      if (
+        goalkeepersResponse.status === 200 &&
+        defendersResponse.status === 200
+      ) {
+        const [goalkeepersData, defendersData] = await Promise.all([
+          goalkeepersResponse.json(),
+          defendersResponse.json(),
+        ]);
+
+        setGoalkeepers(goalkeepersData);
+        setDefenders(defendersData);
       }
     } catch (err: any) {
       console.log(err.message);
@@ -28,10 +44,10 @@ const FootballField = () => {
   }
 
   useEffect(() => {
-    //fetchData();
+    fetchData();
   }, []);
 
-  const { goalkeeper, defenders, midfielders, forwards } = formation442;
+  const { goalkeeper, midfielders, forwards } = formation442;
 
   return (
     <div className="football-field">
@@ -45,7 +61,7 @@ const FootballField = () => {
       <div className="defenders">
         {defenders.map((defender) => (
           <div key={defender.id} className="defender">
-            <Defender {...defender} />
+            <Defender defenders={defenders} {...defender} />
           </div>
         ))}
       </div>

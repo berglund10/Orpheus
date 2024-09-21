@@ -14,17 +14,19 @@ function Login() {
     if (user)
       if (user.username === username && user.password === password) {
         user.auth = true;
+        console.log(user);
+        navigate("/loggedIn");
       } else {
         setErrorMessage("Fel användarnamn eller lösenord");
       }
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (user)
       if (user.auth) {
         navigate("/");
       }
-  }, []);
+  }, []); */
 
   return (
     <div>

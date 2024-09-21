@@ -46,8 +46,7 @@ const Defender = (props: DefenderProps) => {
       <br />
       <select name="defenders" onChange={handleChange}>
         {props.defenders.length > 0 ? (
-          props.defenders.slice(0, 4) // Här beror det på vilken formation du valt, 4 för 4-4-2
-          .map((defender) => (
+          props.defenders.map((defender) => (
             <option key={defender.id} value={defender.name}>
               {defender.name}
             </option>

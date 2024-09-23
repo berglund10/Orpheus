@@ -67,6 +67,13 @@ export default class Database {
     return user;
   }
 
+  async deleteUserById(id: string) {
+    const query = "DELETE FROM users WHERE id = $1";
+    await this.getConnection().query(query, [id]);
+
+    return { message: `User with id ${id} deleted successfully.` };
+  }
+
   async disconnect() {
     if (this.connection) {
       await this.connection.end();

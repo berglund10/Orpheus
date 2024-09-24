@@ -16,3 +16,10 @@ test('GET /api/goalkeepers should return array', async () => {
     deepEqual(Array.isArray(goalkeepersArray), true);
 
 });
+
+test('GET /api/goalkeepers first should be named M. Perin', async () => {
+    const res = await request(app).get('/api/goalkeepers');
+    const firstGoalKepper = res.body[0];
+    deepEqual(firstGoalKepper.name, "M. Perin");
+});
+

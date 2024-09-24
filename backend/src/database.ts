@@ -2,6 +2,11 @@ import { Client, ClientConfig } from "pg";
 import { v4 as uuidv4 } from "uuid";
 import { checkHashedPassword, hashPassword } from "./password";
 
+type User = {
+  id: string;
+  username: string;
+};
+
 export default class Database {
   config: ClientConfig;
   connection: Client | null;
@@ -67,10 +72,13 @@ export default class Database {
     return user;
   }
 
-  async getUsers() {
+  async getUsers(): Promise<User[]> {
     const query = "SELECT * FROM users";
     const result = await this.getConnection().query(query);
-    return result.rows;
+    return result.rows.map((row: any) => ({
+      id: row.id,
+      username: row.username,
+    })) as User[];
   }
 
   async deleteUserById(id: string) {

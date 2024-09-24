@@ -23,3 +23,7 @@ test('GET /api/goalkeepers first should be named M. Perin', async () => {
     deepEqual(firstGoalKepper.name, "M. Perin");
 });
 
+test('GET /users should return status 200', async () => {
+    const res = await request(app).get('/users');
+    deepEqual(res.status, 200);
+});

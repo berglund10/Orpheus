@@ -5,6 +5,7 @@ import Goalkeeper from "./goalkeeper";
 import Defender from "./defender";
 import { useNavigate } from "react-router-dom";
 import DeadlineCounter from "./deadlineCounter";
+import Forward from "./forward";
 
 const FootballField = () => {
   const [goalkeepers, setGoalkeepers] = useState<any[]>([
@@ -91,7 +92,7 @@ const FootballField = () => {
         .slice(0,2) // For 4-4-2
         .map((forward) => (
           <div key={forward.id} className="forward">
-            {forward.name}
+            <Forward {...forward} forwards={forwards}/>
           </div>
         ))}
       </div>

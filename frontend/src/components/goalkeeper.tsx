@@ -8,7 +8,7 @@ interface GoalkeeperProps {
 }
 
 const Goalkeeper = (props: GoalkeeperProps) => {
-  const [goalkeeper, setGoalkeeper] = useState("GK");
+  const [goalkeeper, setGoalkeeper] = useState(props.name);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGoalkeeper = event.target.value;

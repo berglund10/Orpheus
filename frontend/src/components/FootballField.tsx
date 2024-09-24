@@ -16,18 +16,22 @@ const FootballField = () => {
   ]);
   const fetchData = async () => {
     try {
-      const [goalkeepersResponse, defendersResponse] = await Promise.all([
+      const [goalkeepersResponse, defendersResponse, forwardResponse] = await Promise.all([
         fetch("http://localhost:3000/api/goalkeepers", { method: "GET" }),
         fetch("http://localhost:3000/api/defenders", { method: "GET" }),
+        fetch("http://localhost:3000/api/forward"), {method: "GET"},
       ]);
 
       if (
         goalkeepersResponse.status === 200 &&
-        defendersResponse.status === 200
+        defendersResponse.status === 200 &&
+        forwardResponse.status === 200
+
       ) {
-        const [goalkeepersData, defendersData] = await Promise.all([
+        const [goalkeepersData, defendersData, forwardData] = await Promise.all([
           goalkeepersResponse.json(),
           defendersResponse.json(),
+          forwardResponse.json(),
         ]);
 
         setGoalkeepers(goalkeepersData);
@@ -59,12 +63,13 @@ const FootballField = () => {
       </div>
 
       <div className="defenders">
-        {defenders.slice(0,4) // Här beror det på vilken formation du valt, 4 för 4-4-2
-        .map((defender) => (
-          <div key={defender.id} className="defender">
-            <Defender defenders={defenders} {...defender} />
-          </div>
-        ))}
+        {defenders
+          .slice(0, 4) // Här beror det på vilken formation du valt, 4 för 4-4-2
+          .map((defender) => (
+            <div key={defender.id} className="defender">
+              <Defender defenders={defenders} {...defender} />
+            </div>
+          ))}
       </div>
 
       <div className="midfielders">

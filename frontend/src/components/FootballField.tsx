@@ -87,7 +87,9 @@ const FootballField = () => {
       </div>
 
       <div className="forwards">
-        {forwards.map((forward) => (
+        {forwards
+        .slice(0,2) // For 4-4-2
+        .map((forward) => (
           <div key={forward.id} className="forward">
             {forward.name}
           </div>

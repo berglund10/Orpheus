@@ -27,3 +27,9 @@ test('GET /users should return status 200', async () => {
     const res = await request(app).get('/users');
     deepEqual(res.status, 200);
 });
+
+test('GET /users, the length should be same as users in database(4)', async () => {
+    const res = await request(app).get('/users');
+    const users = res.body;
+    deepEqual(users.length, 4);
+})

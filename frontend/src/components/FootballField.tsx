@@ -7,20 +7,24 @@ import { useNavigate } from "react-router-dom";
 import DeadlineCounter from "./deadlineCounter";
 
 const FootballField = () => {
-  const [goalkeepers, setGoalkeepers] = useState<any[]>([]);
+  const [goalkeepers, setGoalkeepers] = useState<any[]>([
+    { name: "GK", id: 1 }]);
   const [defenders, setDefenders] = useState<any[]>([
-    { name: "BAck1", id: 1 },
-    { name: "BAck2", id: 2 },
-    { name: "BAck3", id: 3 },
-    { name: "BAck4", id: 4 },
+    { name: "DF", id: 1 },
+    { name: "DF", id: 2 },
+    { name: "DF", id: 3 },
+    { name: "DF", id: 4 },
   ]);
-  const [fforwards, setForwards] = useState<any[]>([]);
+  const [forwards, setForwards] = useState<any[]>([
+    { name: "FW", id: 1 },
+    { name: "FW", id: 2 }
+  ]);
   const fetchData = async () => {
     try {
       const [goalkeepersResponse, defendersResponse, forwardResponse] = await Promise.all([
         fetch("http://localhost:3000/api/goalkeepers", { method: "GET" }),
         fetch("http://localhost:3000/api/defenders", { method: "GET" }),
-        fetch("http://localhost:3000/api/forward"), {method: "GET"},
+        fetch("http://localhost:3000/api/forward"), { method: "GET" },
       ]);
 
       if (
@@ -53,7 +57,7 @@ const FootballField = () => {
     fetchData();
   }, []);
 
-  const { goalkeeper, midfielders, forwards } = formation442;
+  const { goalkeeper, midfielders } = formation442;
 
   return (
     <div className="football-field">

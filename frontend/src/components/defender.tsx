@@ -9,12 +9,6 @@ interface DefenderProps {
 
 const Defender = (props: DefenderProps) => {
   const [defender, setDefender] = useState(props.name);
-  const [defenders, setDefenders] = useState<any[]>([
-    { name: "BAck1", id: 1 },
-    { name: "BAck2", id: 2 },
-    { name: "BAck3", id: 3 },
-    { name: "BAck4", id: 4 },
-  ]);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDefender = event.target.value;

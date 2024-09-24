@@ -31,6 +31,18 @@ export default function expressApp(db: Database, apiKey: string) {
     }
   });
 
+  app.get("/users", async (req: Request, res: Response) => {
+    try {
+      const users = await db.getUsers();
+      if (!users) {
+        return res.status(404).json({ error: "No users was found" });
+      }
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ error: "Server Error" });
+    }
+  })
+
   app.post("/user", async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body || {};

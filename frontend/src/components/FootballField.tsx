@@ -14,6 +14,7 @@ const FootballField = () => {
     { name: "BAck3", id: 3 },
     { name: "BAck4", id: 4 },
   ]);
+  const [fforwards, setForwards] = useState<any[]>([]);
   const fetchData = async () => {
     try {
       const [goalkeepersResponse, defendersResponse, forwardResponse] = await Promise.all([
@@ -36,6 +37,7 @@ const FootballField = () => {
 
         setGoalkeepers(goalkeepersData);
         setDefenders(defendersData);
+        setForwards(forwardData);
       }
     } catch (err: any) {
       console.log(err.message);

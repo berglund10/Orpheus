@@ -70,7 +70,7 @@ export default class Database {
   async getUsers() {
     const query = "SELECT * FROM users";
     const result = await this.getConnection().query(query);
-    return result;
+    return result.rows;
   }
 
   async deleteUserById(id: string) {

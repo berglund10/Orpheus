@@ -5,15 +5,10 @@ import cors from "cors";
 import morgan from "morgan";
 import Database from "./database";
 import { checkHashedPassword } from "./password";
-import jwt from "jsonwebtoken";
 import { verifyToken } from "./jwt.middleware";
+import { signAccessToken } from "./token";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
-
-const sharedSymmetricKey = 'secret';
-const issuerValue = 'http://localhost:3000';
-const audienceValue = 'http://localhost:3000/api';
-const accessTokenExpiry = 120;
 
 export default function expressApp(db: Database, apiKey: string) {
   const app = express();
@@ -28,29 +23,19 @@ export default function expressApp(db: Database, apiKey: string) {
       const { username, password } = req.body;
       const user = await db.getUserByUsername(username);
       if (user) {
-        //console.log(user);
         if (checkHashedPassword(password, user.password)) {
-          const token = jwt.sign(
-            {
-              sub: user.id,
-            },
-            sharedSymmetricKey,
-            {
-              algorithm: "HS256",
-              issuer: issuerValue,
-              audience: audienceValue,
-              expiresIn: accessTokenExpiry,
-            },
-          );
+          const token = signAccessToken(user.id);
           return res.status(200).json({
-            accessToken: token,
-            accessTokenExpiry: accessTokenExpiry,
+            accessToken: token.accessToken,
+            accessTokenExpiry: token.accessTokenExpiry,
           });
         } else {
-          return res.status(401).json({ error: "Password is wrong" })
+          return res.status(401).json({ error: "Password is wrong" });
         }
       }
-      res.status(404).json({ error: "Couldn't find a user with that username" });
+      res
+        .status(404)
+        .json({ error: "Couldn't find a user with that username" });
     } catch (error) {
       res.status(500).json({ error: "Server Error" });
     }

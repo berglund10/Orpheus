@@ -71,9 +71,10 @@ export default class Database {
     const user = result.rows[0];
     return user;
   }
-  async getUserByUsername(username: string) {
+  async getUserByUsername(username: string){
     const query = "SELECT * FROM users WHERE username = $1";
     const result = await this.getConnection().query(query, [username])
+    return result;
   }
 
   async getUsers(): Promise<User[]> {

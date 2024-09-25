@@ -24,17 +24,6 @@ test("GET /api/goalkeepers first should be named M. Perin", async () => {
   deepEqual(firstGoalKepper.name, "M. Perin");
 });
 
-/* test("GET /users should return status 200", async () => {
-  const res = await request(app).get("/users");
-  deepEqual(res.status, 200);
-}); */
-
-/* test("GET /users, the length should be same as users in database(4)", async () => {
-  const res = await request(app).get("/users");
-  const users = res.body;
-  deepEqual(users.length, 4);
-}); */
-
 test("POST /login with a username that dosen't exist should return status 404", async () => {
   const data = {
     username: "username"
@@ -61,17 +50,6 @@ test("POST /login with correct username and password should return status 200", 
   const res = await request(app).post("/login").send(data);
   deepEqual(res.status, 200);
 })
-
-/* test("POST /login with correct username and password should return correct tokenText", async () => {
-  const data = {
-    username: "lacan",
-    password: process.env.TEST_PASSWORD
-  }
-  const tokenText = "Här är ditt token";
-
-  const res = await request(app).post("/login").send(data);
-  deepEqual(res.body.token, tokenText);
-}) */
 
 test("POST /login to get token and test protected route with wrong username should return status 403", async () => {
   const data = {

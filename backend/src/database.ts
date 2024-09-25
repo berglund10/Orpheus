@@ -5,6 +5,7 @@ import { checkHashedPassword, hashPassword } from "./password";
 type User = {
   id: string;
   username: string;
+  password: string;
 };
 
 export default class Database {
@@ -71,10 +72,14 @@ export default class Database {
     const user = result.rows[0];
     return user;
   }
-  async getUserByUsername(username: string){
+  async getUserByUsername(username: string): Promise<User | null> {
     const query = "SELECT * FROM users WHERE username = $1";
-    const result = await this.getConnection().query(query, [username])
-    return result;
+    const result = await this.getConnection().query(query, [username]);
+    if (result.rows.length > 0) {
+      const user: User = result.rows[0];
+      return user;
+    }
+    return null;
   }
 
   async getUsers(): Promise<User[]> {

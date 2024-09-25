@@ -61,3 +61,14 @@ test("POST /login with correct username and password should return status 200", 
   const res = await request(app).post("/login").send(data);
   deepEqual(res.status, 200);
 })
+
+test("POST /login with correct username and password should return correct tokenText", async () => {
+  const data = {
+    username: "lacan",
+    password: process.env.TEST_PASSWORD
+  }
+  const tokenText = "Här är ditt token";
+
+  const res = await request(app).post("/login").send(data);
+  deepEqual(res.body.token, tokenText);
+})

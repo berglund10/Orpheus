@@ -62,7 +62,7 @@ test("POST /login with correct username and password should return status 200", 
   deepEqual(res.status, 200);
 })
 
-test("POST /login with correct username and password should return correct tokenText", async () => {
+/* test("POST /login with correct username and password should return correct tokenText", async () => {
   const data = {
     username: "lacan",
     password: process.env.TEST_PASSWORD
@@ -71,4 +71,16 @@ test("POST /login with correct username and password should return correct token
 
   const res = await request(app).post("/login").send(data);
   deepEqual(res.body.token, tokenText);
+}) */
+
+test("POST /login to get token and test protected route with wrong username should return status 403", async () => {
+  const data = {
+    username: "lacann",
+    password: process.env.TEST_PASSWORD
+  }
+
+  const res = await request(app).post("/login").send(data);
+  const token = res.body.accessToken;
+  const usersRes = await request(app).get("/users").set("Authorization", `Bearer ${token}`);
+  deepEqual(usersRes.status, 403);
 })

@@ -2,6 +2,9 @@ import request from "supertest";
 import app from "../index";
 import { deepEqual } from "node:assert/strict";
 import test from "node:test";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 test("GET /api/goalkeepers should return status 200", async (t) => {
   const res = await request(app).get("/api/goalkeepers");
@@ -48,4 +51,13 @@ test("POST /login with correct username but wrong password should return status 
   }
   const res = await request(app).post("/login").send(data);
   deepEqual(res.status, 401)
+})
+
+test("POST /login with correct username and password should return status 200", async () => {
+  const data = {
+    username: "lacan",
+    password: process.env.TEST_PASSWORD
+  }
+  const res = await request(app).post("/login").send(data);
+  deepEqual(res.status, 200);
 })

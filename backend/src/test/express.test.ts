@@ -24,10 +24,10 @@ test("GET /api/goalkeepers first should be named M. Perin", async () => {
   deepEqual(firstGoalKepper.name, "M. Perin");
 });
 
-test("GET /users should return status 200", async () => {
+/* test("GET /users should return status 200", async () => {
   const res = await request(app).get("/users");
   deepEqual(res.status, 200);
-});
+}); */
 
 /* test("GET /users, the length should be same as users in database(4)", async () => {
   const res = await request(app).get("/users");
@@ -83,4 +83,16 @@ test("POST /login to get token and test protected route with wrong username shou
   const token = res.body.accessToken;
   const usersRes = await request(app).get("/users").set("Authorization", `Bearer ${token}`);
   deepEqual(usersRes.status, 403);
+})
+
+test("POST /login to get token and test protected route with correct username/password should return status 200", async () => {
+  const data = {
+    username: "lacan",
+    password: process.env.TEST_PASSWORD
+  }
+
+  const res = await request(app).post("/login").send(data);
+  const token = res.body.accessToken;
+  const usersRes = await request(app).get("/users").set("Authorization", `Bearer ${token}`);
+  deepEqual(usersRes.status, 200);
 })

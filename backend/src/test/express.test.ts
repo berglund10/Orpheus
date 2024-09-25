@@ -40,3 +40,12 @@ test("POST /login with a username that dosen't exist should return status 404", 
   deepEqual(res.status, 404);
 
 })
+
+test("POST /login with correct username but wrong password should return status 401", async () => {
+  const data = {
+    username: "lacan",
+    password: "thisIsWrong"
+  }
+  const res = await request(app).post("/login").send(data);
+  deepEqual(res.status, 401)
+})

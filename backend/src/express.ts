@@ -6,6 +6,7 @@ import morgan from "morgan";
 import Database from "./database";
 import { checkHashedPassword } from "./password";
 import jwt from "jsonwebtoken";
+import { verifyToken } from "./jwt.middleware";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
@@ -71,7 +72,7 @@ export default function expressApp(db: Database, apiKey: string) {
     }
   });
 
-  app.get("/users", async (req: Request, res: Response) => {
+  app.get("/users", verifyToken, async (req: Request, res: Response) => {
     try {
       const users = await db.getUsers();
       if (users.length === 0) {

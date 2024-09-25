@@ -4,6 +4,7 @@ import compression from "compression";
 import cors from "cors";
 import morgan from "morgan";
 import Database from "./database";
+import { checkHashedPassword } from "./password";
 
 const frontendDistPath = path.join(__dirname, "..", "..", "frontend", "dist");
 
@@ -14,6 +15,25 @@ export default function expressApp(db: Database, apiKey: string) {
   app.use(compression());
   app.use(express.json());
   app.use(morgan("dev"));
+
+  app.post("/login", async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      const user = await db.getUserByUsername(username);
+      if(user) {
+        console.log(user);
+        if(checkHashedPassword(password, user.password)) {
+          return res.status(200).json({ token: "Här är ditt token"})
+          //generate TOKEN
+        } else {
+          return res.status(401).json({ error: "Password is wrong"})
+        }
+      }
+      res.status(404).json({ error: "Couldn't find a user with that username"});
+    } catch (error) {
+      res.status(500).json({ error: "Server Error" });
+    }
+  });
 
   app.get("/user/:id", async (req: Request, res: Response) => {
     try {
@@ -41,7 +61,7 @@ export default function expressApp(db: Database, apiKey: string) {
     } catch (error) {
       res.status(500).json({ error: "Server Error" });
     }
-  })
+  });
 
   app.post("/user", async (req: Request, res: Response) => {
     try {
